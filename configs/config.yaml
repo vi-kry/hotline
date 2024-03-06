@@ -1,0 +1,14 @@
+env: "local" #local, dev, prod
+http_server:
+  address: "localhost:8082"
+  timeout: 4s
+  idle_timeout: 60s
+
+isso:
+  url: "https://isso.mts.ru"
+  client_id: "egl"
+  grant_type: "authorization_code"
+
+token:
+  secret: "0000000-0000-0000-0000-000000000000"
+  expires_at: 10080 #value in minutes
