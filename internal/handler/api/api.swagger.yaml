@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  version: "1.0.0"
+  title: auth
+  description: Authorization service
+servers:
+  - url: http://localhost
+tags:
+  - name: login
+    description: Login
+paths:
+  /login:
+    get:
+      tags:
+        - login
+      summary: Get redirect URL
+      operationId: GetRedirectURL
+      description: Get redirect URL
+      responses:
+        303:
+          description: Redirect to URL for login authentication
+  /isso:
+    get:
+      tags:
+        - login
+      summary: Get ISSO object URL
+      operationId: getISSOURL
+      description: Get ISSO object URL
+      responses:
+        200:
+          description: Object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SISSO'
+
+  /callback:
+    get:
+      tags:
+        - login
+      summary: Send code
+      operationId: getCallback
+      description: Send code
+      parameters:
+        - in: query
+          name: code
+          schema:
+            type: string
+          description: code for authorization
+          required: true
+        - in: query
+          name: client_secret
+          schema:
+            type: string
+          description: client_secret for authorization
+          required: true
+      responses:
+        200:
+          description: Get token
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SToken'
+
+components:
+  schemas:
+    SToken:
+      type: object
+      properties:
+        token_type:
+          type: string
+          enum: [Bearer]
+        access_token:
+          type: string
+
+    SISSO:
+      type: object
+      properties:
+        url:
+          type: string

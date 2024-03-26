@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"hotline/internal/config"
+	"hotline/internal/handler"
 	"hotline/internal/service"
 	"hotline/internal/transport"
 )
@@ -16,4 +17,7 @@ func main() {
 
 	services := service.NewService(transports)
 	fmt.Println(services)
+
+	handlers := handler.NewHandler(services)
+	fmt.Println(handlers)
 }
